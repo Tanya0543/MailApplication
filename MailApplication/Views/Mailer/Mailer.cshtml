@@ -21,7 +21,7 @@
                                 @Html.TextBoxFor(u=>u.Subject)  
                             </div>
 
-                        @(Html.Kendo().Editor()
+                        @(Html.Kendo().EditorFor(u=>u.Body)
                             .Name("editor")
                             .HtmlAttributes(new { style = "width: 800;height:240px" })
                             .ImageBrowser(imageBrowser => imageBrowser
@@ -30,7 +30,8 @@
                             .Create("Create", "ImageBrowser")
                             .Destroy("Destroy", "ImageBrowser")
                             .Upload("Upload", "ImageBrowser")
-                            .Thumbnail("Thumbnail", "ImageBrowser"))
+                            .Thumbnail("Thumbnail", "ImageBrowser")
+                            )
                         )
 
     </div>

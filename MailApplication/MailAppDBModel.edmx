@@ -13,7 +13,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="ConfigDetails" EntitySet="ConfigDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmailDeta__UserI__37A5467C" Association="MailAppDBModel.Store.FK__EmailDeta__UserI__37A5467C">
+          <AssociationSet Name="FK__EmailDeta__UserI__5CD6CB2B" Association="MailAppDBModel.Store.FK__EmailDeta__UserI__5CD6CB2B">
             <End Role="Users" EntitySet="Users" />
             <End Role="EmailDetails" EntitySet="EmailDetails" />
           </AssociationSet>
@@ -24,7 +24,7 @@
           </Key>
           <Property Name="ConfigID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="SMTPHost" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="SMTPPort" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="SMTPPort" Type="int" Nullable="false" />
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
@@ -39,6 +39,7 @@
           <Property Name="RecipientName" Type="varchar(max)" Nullable="false" />
           <Property Name="RecipientEmail" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="Subject" Type="varchar(max)" />
+          <Property Name="Body" Type="nvarchar(max)" />
           <Property Name="MailingDate" Type="datetime" Nullable="false" />
           <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -67,7 +68,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmailDeta__UserI__37A5467C">
+        <Association Name="FK__EmailDeta__UserI__5CD6CB2B">
           <End Role="Users" Type="MailAppDBModel.Store.Users" Multiplicity="1" />
           <End Role="EmailDetails" Type="MailAppDBModel.Store.EmailDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -84,32 +85,18 @@
     <edmx:ConceptualModels>
       <Schema Namespace="MailAppDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MailAppDBEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="EmailDetails" EntityType="MailAppDBModel.EmailDetail" />
           <EntitySet Name="Users" EntityType="MailAppDBModel.User" />
-          <AssociationSet Name="FK__EmailDeta__UserI__37A5467C" Association="MailAppDBModel.FK__EmailDeta__UserI__37A5467C">
-            <End Role="User" EntitySet="Users" />
-            <End Role="EmailDetail" EntitySet="EmailDetails" />
-          </AssociationSet>
           <EntitySet Name="ConfigDetails" EntityType="MailAppDBModel.ConfigDetail" />
           <AssociationSet Name="FK__ConfigDet__UserI__4D94879B" Association="MailAppDBModel.FK__ConfigDet__UserI__4D94879B">
             <End Role="User" EntitySet="Users" />
             <End Role="ConfigDetail" EntitySet="ConfigDetails" />
           </AssociationSet>
+          <EntitySet Name="EmailDetails" EntityType="MailAppDBModel.EmailDetail" />
+          <AssociationSet Name="FK__EmailDeta__UserI__5CD6CB2B" Association="MailAppDBModel.FK__EmailDeta__UserI__5CD6CB2B">
+            <End Role="User" EntitySet="Users" />
+            <End Role="EmailDetail" EntitySet="EmailDetails" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="EmailDetail">
-          <Key>
-            <PropertyRef Name="EmailID" />
-          </Key>
-          <Property Type="Int32" Name="EmailID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="SenderName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="SenderEmail" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="RecipientName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="RecipientEmail" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Subject" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="MailingDate" Nullable="false" Precision="3" />
-          <Property Type="Guid" Name="UserID" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="MailAppDBModel.FK__EmailDeta__UserI__37A5467C" FromRole="EmailDetail" ToRole="User" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -122,28 +109,16 @@
           <Property Type="String" Name="Password" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EmailDetails" Relationship="MailAppDBModel.FK__EmailDeta__UserI__37A5467C" FromRole="User" ToRole="EmailDetail" />
           <NavigationProperty Name="ConfigDetails" Relationship="MailAppDBModel.FK__ConfigDet__UserI__4D94879B" FromRole="User" ToRole="ConfigDetail" />
+          <NavigationProperty Name="EmailDetails" Relationship="MailAppDBModel.FK__EmailDeta__UserI__5CD6CB2B" FromRole="User" ToRole="EmailDetail" />
         </EntityType>
-        <Association Name="FK__EmailDeta__UserI__37A5467C">
-          <End Type="MailAppDBModel.User" Role="User" Multiplicity="1" />
-          <End Type="MailAppDBModel.EmailDetail" Role="EmailDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="EmailDetail">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ConfigDetail">
           <Key>
             <PropertyRef Name="ConfigID" />
           </Key>
           <Property Type="Guid" Name="ConfigID" Nullable="false" />
           <Property Type="String" Name="SMTPHost" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="SMTPPort" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="SMTPPort" Nullable="false" />
           <Property Type="String" Name="Password" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="UserID" Nullable="false" />
@@ -161,26 +136,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EmailDetail">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Type="Int32" Name="EmailID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="SenderName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SenderEmail" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RecipientName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RecipientEmail" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Subject" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Body" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="MailingDate" Nullable="false" Precision="3" />
+          <Property Type="Guid" Name="UserID" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="MailAppDBModel.FK__EmailDeta__UserI__5CD6CB2B" FromRole="EmailDetail" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__EmailDeta__UserI__5CD6CB2B">
+          <End Type="MailAppDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="MailAppDBModel.EmailDetail" Role="EmailDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="EmailDetail">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MailAppDBModelStoreContainer" CdmEntityContainer="MailAppDBEntities">
-          <EntitySetMapping Name="EmailDetails">
-            <EntityTypeMapping TypeName="MailAppDBModel.EmailDetail">
-              <MappingFragment StoreEntitySet="EmailDetails">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="MailingDate" ColumnName="MailingDate" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="RecipientEmail" ColumnName="RecipientEmail" />
-                <ScalarProperty Name="RecipientName" ColumnName="RecipientName" />
-                <ScalarProperty Name="SenderEmail" ColumnName="SenderEmail" />
-                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MailAppDBModel.User">
               <MappingFragment StoreEntitySet="Users">
@@ -204,6 +192,21 @@
                 <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
                 <ScalarProperty Name="SMTPHost" ColumnName="SMTPHost" />
                 <ScalarProperty Name="ConfigID" ColumnName="ConfigID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailDetails">
+            <EntityTypeMapping TypeName="MailAppDBModel.EmailDetail">
+              <MappingFragment StoreEntitySet="EmailDetails">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="MailingDate" ColumnName="MailingDate" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="RecipientEmail" ColumnName="RecipientEmail" />
+                <ScalarProperty Name="RecipientName" ColumnName="RecipientName" />
+                <ScalarProperty Name="SenderEmail" ColumnName="SenderEmail" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

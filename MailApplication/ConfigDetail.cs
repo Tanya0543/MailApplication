@@ -16,7 +16,7 @@ namespace MailApplication
     {
         public System.Guid ConfigID { get; set; }
         public string SMTPHost { get; set; }
-        public string SMTPPort { get; set; }
+        public int SMTPPort { get; set; }
         public string Password { get; set; }
         public string PasswordSalt { get; set; }
         public System.Guid UserID { get; set; }

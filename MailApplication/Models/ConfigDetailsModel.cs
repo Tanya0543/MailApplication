@@ -13,7 +13,7 @@ namespace MailApplication.Models
         public string SMTPHost { get; set; }
         [Required]
         [Display(Name = "SMTIP Port")]
-        public string SMTPPort { get; set; }
+        public int SMTPPort { get; set; }
         [Required]
         [Display(Name = "Password")]
         public string Password { get; set; }

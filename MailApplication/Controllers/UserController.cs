@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+
 namespace MailApplication.Controllers
 {
     public class UserController : Controller
@@ -25,6 +28,13 @@ namespace MailApplication.Controllers
                 if (IsValid(user.Email, user.Password))
                 {
                     FormsAuthentication.SetAuthCookie(user.Email, false);
+                    
+                    using (var db = new MailAppDBEntities())
+                    {
+                        var SessionInf = db.Users.FirstOrDefault(u => u.Email == user.Email );
+                        MvcApplication.SessionUser = SessionInf.UserID;
+                    }                    
+                   
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -77,26 +87,6 @@ namespace MailApplication.Controllers
             return View();
         }
 
-        private bool IsValid(string email, string password)
-        {
-            var Crypto = new SimpleCrypto.PBKDF2(); //instantiate the SimpleCrypto Class to be able to encrypt the password
-            bool isValid =false;
-            
-            using (var db = new MailAppDBEntities())
-            {
-                var user = db.Users.FirstOrDefault(u=>u.Email == email);
-                if (user != null)
-                {
-                    if(user.Password== Crypto.Compute(password,user.PasswordSalt))
-                    {
-                        isValid = true;
-                    }
-                }
-            }
-
-            return isValid;
-        }
-
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
@@ -121,18 +111,19 @@ namespace MailApplication.Controllers
                     var ConfigDetails = db.ConfigDetails.Create();
                     var Crypto = new SimpleCrypto.PBKDF2();
                     var encPass = Crypto.Compute(MailConfig.Password);
-                    var user = db.Users.FirstOrDefault(u => u.Email == "diacana5@gmail.com");
+                    var user = db.Users.FirstOrDefault(u => u.UserID == MvcApplication.SessionUser);
 
-                    ConfigDetails.SMTPHost = MailConfig.SMTPHost;
-                    ConfigDetails.SMTPPort = MailConfig.SMTPPort;
-                    ConfigDetails.Password = encPass;
-                    ConfigDetails.PasswordSalt = Crypto.Salt;
-                    ConfigDetails.UserID = user.UserID;
-
-                    db.ConfigDetails.Add(ConfigDetails);
-                    db.SaveChanges();
-
-                    return RedirectToAction("Index", "Home");
+                    if (user != null)
+                    {
+                        ConfigDetails.SMTPHost = MailConfig.SMTPHost;
+                        ConfigDetails.SMTPPort = MailConfig.SMTPPort;
+                        ConfigDetails.Password = encPass;
+                        ConfigDetails.PasswordSalt = Crypto.Salt;
+                        ConfigDetails.UserID = user.UserID;
+                        db.ConfigDetails.Add(ConfigDetails);
+                        db.SaveChanges();
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
             else
@@ -142,20 +133,28 @@ namespace MailApplication.Controllers
             return View();
         }
 
-    }
 
-
-    namespace Kendo.Mvc.Examples.Controllers
-    {
-        using System.Web.Mvc;
-
-        public partial class AutoCompleteController : Controller
+        private bool IsValid(string email, string password)
         {
-            public ActionResult Index()
+            var Crypto = new SimpleCrypto.PBKDF2(); //instantiate the SimpleCrypto Class to be able to encrypt the password
+            bool isValid =false;
+            
+            using (var db = new MailAppDBEntities())
             {
-                return View();
+                var user = db.Users.FirstOrDefault(u=>u.Email == email);
+                if (user != null)
+                {
+                    if(user.Password== Crypto.Compute(password,user.PasswordSalt))
+                    {
+                        isValid = true;
+                    }
+                }
             }
+
+            return isValid;
         }
-    }
+
+  
+}
 
 }

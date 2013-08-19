@@ -16,8 +16,8 @@ namespace MailApplication
     {
         public User()
         {
-            this.EmailDetails = new HashSet<EmailDetail>();
             this.ConfigDetails = new HashSet<ConfigDetail>();
+            this.EmailDetails = new HashSet<EmailDetail>();
         }
     
         public System.Guid UserID { get; set; }
@@ -29,7 +29,7 @@ namespace MailApplication
         public string PasswordSalt { get; set; }
         public string Email { get; set; }
     
-        public virtual ICollection<EmailDetail> EmailDetails { get; set; }
         public virtual ICollection<ConfigDetail> ConfigDetails { get; set; }
+        public virtual ICollection<EmailDetail> EmailDetails { get; set; }
     }
 }

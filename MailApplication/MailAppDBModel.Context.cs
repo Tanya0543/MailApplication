@@ -25,8 +25,8 @@ namespace MailApplication
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<EmailDetail> EmailDetails { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ConfigDetail> ConfigDetails { get; set; }
+        public DbSet<EmailDetail> EmailDetails { get; set; }
     }
 }

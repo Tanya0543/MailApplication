@@ -43,5 +43,7 @@ namespace MailApplication
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
+
+        public static Guid SessionUser;
     }
 }

@@ -9,22 +9,13 @@ namespace MailApplication.Mailers
 			MasterName="_Layout";
 		}
 		
-		public virtual MvcMailMessage Welcome(string Email, string Subject)
+		public virtual MvcMailMessage Welcome(string Email, string Subject, string Body)
 		{
-			//ViewBag.Data = someObject;
-			//return Populate(x =>
-			//{
-			//	x.Subject = "Welcome";
-			//	x.ViewName = "Welcome";
-			//	x.To.Add("some-email@example.com");
-			//});
-
-            var mailMessage = new MvcMailMessage { Subject = Subject };
+			var mailMessage = new MvcMailMessage { Subject = Subject };
             mailMessage.To.Add(Email);
-            //ViewBag.Name = "Yiiiiiiito";
-            //PopulateBody(mailMessage, viewName: "Welcome");
+            if (string.IsNullOrEmpty(Body) == false)
+                mailMessage.Body.Contains(Body);
             return mailMessage;
-
 		}
  
 		public virtual MvcMailMessage GoodBye()

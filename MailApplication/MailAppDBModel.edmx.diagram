@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bf92e57e70114679a67b20dae7c15b88" Name="Diagram1" ZoomLevel="96">
-        <EntityTypeShape EntityType="MailAppDBModel.EmailDetail" Width="1.5" PointX="10.625" PointY="8.125" />
         <EntityTypeShape EntityType="MailAppDBModel.User" Width="1.5" PointX="12.375" PointY="8.125" />
-        <AssociationConnector Association="MailAppDBModel.FK__EmailDeta__UserI__37A5467C" />
-        <EntityTypeShape EntityType="MailAppDBModel.ConfigDetail" Width="1.5" PointX="14.125" PointY="8.125" />
+        <EntityTypeShape EntityType="MailAppDBModel.ConfigDetail" Width="1.5" PointX="14.25" PointY="8.125" />
         <AssociationConnector Association="MailAppDBModel.FK__ConfigDet__UserI__4D94879B" />
+        <EntityTypeShape EntityType="MailAppDBModel.EmailDetail" Width="1.5" PointX="10.5" PointY="8.125" />
+        <AssociationConnector Association="MailAppDBModel.FK__EmailDeta__UserI__5CD6CB2B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

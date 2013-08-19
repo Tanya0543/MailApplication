@@ -20,6 +20,7 @@ namespace MailApplication
         public string RecipientName { get; set; }
         public string RecipientEmail { get; set; }
         public string Subject { get; set; }
+        public string Body { get; set; }
         public System.DateTime MailingDate { get; set; }
         public System.Guid UserID { get; set; }
     

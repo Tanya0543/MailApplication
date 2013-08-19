@@ -3,4 +3,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Report</h2>
+
+@Html.DevExpress().ReportViewer(settings =>{
+    // The following settings are necessary for a Report Viewer. 
+    settings.Name = "reportViewer1";
+    settings.Report = (DevExpressMvcApplication1.Reports.XtraReport1)ViewData["Report"];
+    // Callback and export route values specify corresponding controllers and their actions. 
+    // These settings are necessary as well. 
+    settings.CallbackRouteValues = new { Controller="Home", Action="ReportViewerPartial" };
+    settings.ExportRouteValues = new { Controller="Home", Action="ExportReportViewer" };
+    }).GetHtml()
+
+
+
