@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bf92e57e70114679a67b20dae7c15b88" Name="Diagram1" ZoomLevel="96">
+        <EntityTypeShape EntityType="MailAppDBModel.EmailDetail" Width="1.5" PointX="10.625" PointY="8.125" />
+        <EntityTypeShape EntityType="MailAppDBModel.User" Width="1.5" PointX="12.375" PointY="8.125" />
+        <AssociationConnector Association="MailAppDBModel.FK__EmailDeta__UserI__37A5467C" />
+        <EntityTypeShape EntityType="MailAppDBModel.ConfigDetail" Width="1.5" PointX="14.125" PointY="8.125" />
+        <AssociationConnector Association="MailAppDBModel.FK__ConfigDet__UserI__4D94879B" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

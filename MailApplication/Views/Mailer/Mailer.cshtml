@@ -1,0 +1,39 @@
+﻿@model MailApplication.Models.EmailDetailsModel
+@{
+    ViewBag.Title = "Mailer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    
+
+@using(Html.BeginForm())
+{
+    @Html.ValidationSummary(true,"Create user Failed, review your fields")
+    <div>
+
+                            <div>
+                                <input class="k-button" type ="submit" value="Send"/>
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(u=>u.RecipientEmail)
+                            </div>
+                            @Html.ValidationMessageFor(u=>u.RecipientEmail) 
+                            <div>
+                                @Html.TextBoxFor(u=>u.Subject)  
+                            </div>
+
+                        @(Html.Kendo().Editor()
+                            .Name("editor")
+                            .HtmlAttributes(new { style = "width: 800;height:240px" })
+                            .ImageBrowser(imageBrowser => imageBrowser
+                            .Image("~/Content/UserFiles/Images/{0}")    
+                            .Read("Read", "ImageBrowser")
+                            .Create("Create", "ImageBrowser")
+                            .Destroy("Destroy", "ImageBrowser")
+                            .Upload("Upload", "ImageBrowser")
+                            .Thumbnail("Thumbnail", "ImageBrowser"))
+                        )
+
+    </div>
+}
+
+        

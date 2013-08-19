@@ -1,0 +1,25 @@
+﻿@model MailApplication.Models.UserModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using(Html.BeginForm())
+{
+    @Html.ValidationSummary(true,"Login Failed, check you User or Password")
+    <div>
+        <fieldset>
+            <legend>Login Form</legend>
+            <div>@Html.LabelFor(u=>u.Email)</div>
+            <div>@Html.TextBoxFor(u=>u.Email)</div>
+                @Html.ValidationMessageFor(u=>u.Email) <!-- Alows to show the Validations Messages created in the view -->
+
+            <div>@Html.LabelFor(u=>u.Password)</div>
+            <div>@Html.PasswordFor(u=>u.Password)
+                @Html.ValidationMessageFor(u=>u.Password) <!-- Alows to show the Validations Messages created in the view -->
+            </div>
+            <input type ="submit" value="LogIn" />
+        </fieldset>
+    </div>
+}

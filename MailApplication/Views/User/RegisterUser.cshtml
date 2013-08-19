@@ -1,0 +1,66 @@
+﻿@model MailApplication.Models.UserModel
+
+@{
+    ViewBag.Title = "RegisterUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using(Html.BeginForm())
+{
+    @Html.ValidationSummary(true,"Create user Failed, review your fields")
+    <div>
+        <fieldset>
+            <legend>Create new User</legend>
+
+            <div class="required">@Html.LabelFor(u=>u.Name)</div>
+            <div  class="k-textbox"  >
+                @Html.TextBoxFor(u=>u.Name)                                                   
+            </div>            
+            @Html.ValidationMessageFor(u=>u.Name) 
+
+            <div class="editor-label">
+                @Html.LabelFor(u=>u.LastName)
+            </div>
+            <div  class="k-textbox">
+                @Html.TextBoxFor(u=>u.LastName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(u=>u.BirthDay)
+            </div>
+            <div >
+                @(Html.Kendo().DatePickerFor(u=>u.BirthDay)
+                        .Name("BirthdayPicker")                      
+                        .Value(DateTime.Today)
+                        .HtmlAttributes(new { style = "width:150px" })
+                )
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(u=>u.Genre)
+            </div>
+            <div  class="k-textbox">
+                @Html.TextBoxFor(u=>u.Genre)
+            </div>       
+            <div class="editor-label">
+                @Html.LabelFor(u=>u.Email)
+            </div>
+            <div  class="k-textbox">
+                @Html.TextBoxFor(u=>u.Email)
+            </div>              
+            @Html.ValidationMessageFor(u=>u.Email) <!-- Alows to show the Validations Messages created in the model -->
+
+            <div class="editor-label">
+                @Html.LabelFor(u=>u.Password)
+            </div>
+            <div  class="k-textbox">
+                @Html.PasswordFor(u=>u.Password)                
+            </div>            
+            <div class="K-legend">                 
+                @Html.ValidationMessageFor(u=>u.Password) <!-- Alows to show the Validations Messages created in the model -->                     
+            </div> 
+            <div>
+                <input class="k-button" type ="submit" value="Register" />
+            </div>
+        </fieldset>
+    </div>
+}
