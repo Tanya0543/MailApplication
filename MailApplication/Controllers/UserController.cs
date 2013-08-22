@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace MailApplication.Controllers
 {
@@ -23,18 +24,17 @@ namespace MailApplication.Controllers
         [HttpPost] 
         public ActionResult LogIn(Models.UserModel user)
         {
+            
             if(ModelState.IsValid)
             {
                 if (IsValid(user.Email, user.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(user.Email, false);
-                    
+                    FormsAuthentication.SetAuthCookie(user.Email, false);                    
                     using (var db = new MailAppDBEntities())
                     {
                         var SessionInf = db.Users.FirstOrDefault(u => u.Email == user.Email );
-                        MvcApplication.SessionUser = SessionInf.UserID;
-                    }                    
-                   
+                    }                  
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -111,26 +111,27 @@ namespace MailApplication.Controllers
                     var ConfigDetails = db.ConfigDetails.Create();
                     var Crypto = new SimpleCrypto.PBKDF2();
                     var encPass = Crypto.Compute(MailConfig.Password);
-                    var user = db.Users.FirstOrDefault(u => u.UserID == MvcApplication.SessionUser);
+                    var user = db.Users.FirstOrDefault(u => u.Email == this.HttpContext.User.Identity.Name);
 
                     if (user != null)
                     {
                         ConfigDetails.SMTPHost = MailConfig.SMTPHost;
                         ConfigDetails.SMTPPort = MailConfig.SMTPPort;
-                        ConfigDetails.Password = encPass;
+                        ConfigDetails.Password = MailConfig.Password;
                         ConfigDetails.PasswordSalt = Crypto.Salt;
                         ConfigDetails.UserID = user.UserID;
                         db.ConfigDetails.Add(ConfigDetails);
                         db.SaveChanges();
                         return RedirectToAction("Index", "Home");
                     }
+                    return View(ConfigDetails);
                 }
             }
             else
             {
                 ModelState.AddModelError("", "Login Data is incorrect");
             }
-            return View();
+            return View(); 
         }
 
 

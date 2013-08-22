@@ -220,8 +220,19 @@
     <Compile Include="EmailDetail.cs">
       <DependentUpon>MailAppDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmailReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EmailReport.Designer.cs">
+      <DependentUpon>EmailReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MailAppDBConnectionString.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailAppDBConnectionString.xsd</DependentUpon>
     </Compile>
     <Compile Include="MailAppDBModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -246,6 +257,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs">
       <DependentUpon>MailAppDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraReport1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraReport1.Designer.cs">
+      <DependentUpon>XtraReport1.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -440,6 +460,17 @@
       <DependentUpon>MailAppDBModel.edmx</DependentUpon>
       <LastGenOutput>MailAppDBModel.cs</LastGenOutput>
     </Content>
+    <Content Include="MailAppDBConnectionString.xsc">
+      <DependentUpon>MailAppDBConnectionString.xsd</DependentUpon>
+    </Content>
+    <None Include="MailAppDBConnectionString.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MailAppDBConnectionString.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="MailAppDBConnectionString.xss">
+      <DependentUpon>MailAppDBConnectionString.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -587,11 +618,8 @@
     <Content Include="Views\UserMailer\GoodBye.cshtml" />
     <Content Include="Views\Mailer\Mailer.cshtml" />
     <Content Include="Views\Report\Report.cshtml" />
-    <Content Include="Views\Report\ReportPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reports\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -599,6 +627,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="EmailReport.resx">
+      <DependentUpon>EmailReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <PropertyGroup>

@@ -5,34 +5,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@using(Html.BeginForm())
+@using (Html.BeginForm())
 {
     @Html.ValidationSummary(true,"Create user Failed, review your fields")
     <div>
         <fieldset>
             <legend>Create new User</legend>
 
-            <div class="required">@Html.LabelFor(u=>u.SMTPHost)</div>
+            <div>@Html.LabelFor(u=>u.SMTPHost)</div>
             <div  class="k-textbox"  >
-                @Html.TextBoxFor(u=>u.SMTPHost)                                                   
-            </div>            
-            @Html.ValidationMessageFor(u=>u.SMTPHost) 
+                @Html.TextBoxFor(u=>u.SMTPHost)                                   
+            </div>
+            @Html.ValidationMessageFor(u => u.SMTPHost)
 
-            <div class="required">@Html.LabelFor(u=>u.SMTPPort)</div>
+            <div>@Html.LabelFor(u=>u.SMTPPort)</div>
             <div  class="k-textbox"  >
                 @Html.TextBoxFor(u=>u.SMTPPort)                                                   
             </div>            
             @Html.ValidationMessageFor(u=>u.SMTPPort) 
 
-            <div class="required">@Html.LabelFor(u=>u.Password)</div>
+            <div>@Html.LabelFor(u=>u.Password)</div>
             <div  class="k-textbox"  >
                 @Html.PasswordFor(u=>u.Password)                                                   
             </div>            
             @Html.ValidationMessageFor(u=>u.Password) 
 
-            <div class="required">@Html.LabelFor(u=>u.PasswordConf)</div>
-            <div>
+            <div>@Html.LabelFor(u=>u.PasswordConf)</div>
+            <div  class="k-textbox">
                 @Html.PasswordFor(u=>u.PasswordConf)                                    
             </div>            
              @Html.ValidationMessageFor(u=>u.PasswordConf)

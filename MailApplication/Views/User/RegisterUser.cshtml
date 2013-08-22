@@ -36,7 +36,7 @@
                 )
             </div>
             <div class="editor-label">
-                @Html.LabelFor(u=>u.Genre)
+                @Html.LabelFor(u=>u.Genre) 
             </div>
             <div  class="k-textbox">
                 @Html.TextBoxFor(u=>u.Genre)
@@ -54,11 +54,10 @@
             </div>
             <div  class="k-textbox">
                 @Html.PasswordFor(u=>u.Password)                
-            </div>            
-            <div class="K-legend">                 
-                @Html.ValidationMessageFor(u=>u.Password) <!-- Alows to show the Validations Messages created in the model -->                     
-            </div> 
+            </div>                 
+                @Html.ValidationMessageFor(u=>u.Password) <!-- Allows to show the Validations Messages created in the model -->                     
             <div>
+
                 <input class="k-button" type ="submit" value="Register" />
             </div>
         </fieldset>

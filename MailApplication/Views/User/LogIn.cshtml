@@ -11,15 +11,17 @@
     <div>
         <fieldset>
             <legend>Login Form</legend>
-            <div>@Html.LabelFor(u=>u.Email)</div>
-            <div>@Html.TextBoxFor(u=>u.Email)</div>
-                @Html.ValidationMessageFor(u=>u.Email) <!-- Alows to show the Validations Messages created in the view -->
+            <div class="Required">@Html.LabelFor(u=>u.Email)</div>
+            <div class="k-textbox">@Html.TextBoxFor(u=>u.Email)</div>
+            @Html.ValidationMessageFor(u=>u.Email) <!-- Allows to show the Validations Messages created in the view -->
 
-            <div>@Html.LabelFor(u=>u.Password)</div>
-            <div>@Html.PasswordFor(u=>u.Password)
-                @Html.ValidationMessageFor(u=>u.Password) <!-- Alows to show the Validations Messages created in the view -->
+            <div class="Required">@Html.LabelFor(u=>u.Password)</div>
+            <div class="k-textbox">@Html.PasswordFor(u=>u.Password)</div>
+            @Html.ValidationMessageFor(u=>u.Password) <!-- Allows to show the Validations Messages created in the view -->
+            
+            <div>
+                <input  class="k-button"  type ="submit" value="LogIn" />
             </div>
-            <input type ="submit" value="LogIn" />
         </fieldset>
     </div>
 }

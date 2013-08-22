@@ -8,33 +8,86 @@
 @using(Html.BeginForm())
 {
     @Html.ValidationSummary(true,"Create user Failed, review your fields")
-    <div>
+ 
 
-                            <div>
-                                <input class="k-button" type ="submit" value="Send"/>
-                            </div>
-                            <div>
-                                @Html.TextBoxFor(u=>u.RecipientEmail)
-                            </div>
-                            @Html.ValidationMessageFor(u=>u.RecipientEmail) 
-                            <div>
-                                @Html.TextBoxFor(u=>u.Subject)  
-                            </div>
+@(Html.Kendo().Window()
+    .Name("window")
+    .Title("Send an Email")
+    .Content(@<text>
 
-                        @(Html.Kendo().EditorFor(u=>u.Body)
-                            .Name("editor")
-                            .HtmlAttributes(new { style = "width: 800;height:240px" })
-                            .ImageBrowser(imageBrowser => imageBrowser
-                            .Image("~/Content/UserFiles/Images/{0}")    
-                            .Read("Read", "ImageBrowser")
-                            .Create("Create", "ImageBrowser")
-                            .Destroy("Destroy", "ImageBrowser")
-                            .Upload("Upload", "ImageBrowser")
-                            .Thumbnail("Thumbnail", "ImageBrowser")
-                            )
-                        )
+            <div>
+                <input class="k-button" type ="submit" value="Send"/>
+            </div>
+                <div>
+                    @Html.TextBoxFor(u=>u.RecipientEmail)
+                </div>
+                    @Html.ValidationMessageFor(u=>u.RecipientEmail) 
+                <div>
+                    @Html.TextBoxFor(u=>u.Subject)  
+                </div>
 
-    </div>
+                @(Html.Kendo().EditorFor(u=>u.Body)
+                    .Name("editor")
+                    .HtmlAttributes(new { style = "width: 800;height:240px" })
+                    .ImageBrowser(imageBrowser => imageBrowser
+                    .Image("~/Content/UserFiles/Images/{0}")    
+                    .Read("Read", "ImageBrowser")
+                    .Create("Create", "ImageBrowser")
+                    .Destroy("Destroy", "ImageBrowser")
+                    .Upload("Upload", "ImageBrowser")
+                    .Thumbnail("Thumbnail", "ImageBrowser")
+                    )
+                )
+
+
+    </text>)
+    .Draggable()
+    .Resizable()
+    .Width(600)
+    .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+    .Events(ev => ev.Close("onClose"))
+)
+
+<span id="undo" style="display:none" class="k-button">Compose Mail</span>
+
+<script>
+    function onClose() {
+        $("#undo").show();
+    }
+
+    $(document).ready(function() {
+        $("#undo").bind("click", function() {
+                $("#window").data("kendoWindow").open();
+                $("#undo").hide();
+            });
+    });
+</script>
+
+<style scoped>
+    #example
+    {
+        min-height:500px;
+    }
+
+    #undo {
+        text-align: center;
+        position: absolute;
+        white-space: nowrap;
+        padding: 1em;
+        cursor: pointer;
+    }
+    .armchair {
+        float: left;
+        margin: 30px 30px 120px 30px;
+        text-align: center;
+    }
+    .armchair img {
+        display: block;
+        margin-bottom: 10px;
+    }
+</style>
+
+                           
 }
 
         

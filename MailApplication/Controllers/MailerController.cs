@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Mvc.Mailer;
 using System.Net.Mail;
 using Mvc.Mailer;
 
@@ -26,8 +25,8 @@ namespace MailApplication.Controllers
                 using (var db = new MailAppDBEntities())
                 {
                     var EmailDetails = db.EmailDetails.Create();
-                    var user = db.Users.FirstOrDefault(u => u.UserID == MvcApplication.SessionUser);
-                    var ConfigDetails = db.ConfigDetails.FirstOrDefault(u => u.UserID == MvcApplication.SessionUser);
+                    var user = db.Users.FirstOrDefault(u => u.Email == this.HttpContext.User.Identity.Name);
+                    var ConfigDetails = db.ConfigDetails.FirstOrDefault(u => u.UserID == u.UserID);
 
                     if (user != null & ConfigDetails != null)
                     {
@@ -42,10 +41,11 @@ namespace MailApplication.Controllers
                         db.EmailDetails.Add(EmailDetails);
                         db.SaveChanges();
 
-                        using (var clientDetails = new SmtpClient("smtp.gmail.com", 587))
+                        //using (var clientDetails = new SmtpClient("smtp.gmail.com", 587))
+                        using (var clientDetails = new SmtpClient(ConfigDetails.SMTPHost, ConfigDetails.SMTPPort))
                         {
                             clientDetails.EnableSsl = true;
-                            clientDetails.Credentials = new System.Net.NetworkCredential(user.Email, "Woyzeck*2334");
+                            clientDetails.Credentials = new System.Net.NetworkCredential(user.Email, user.Password);
                             clientDetails.EnableSsl = true;                   
                             SmtpClientWrapper wrapper = new SmtpClientWrapper(clientDetails);                       
                             MailApplication.Mailers.IUserMailer mailer = new MailApplication.Mailers.UserMailer();
